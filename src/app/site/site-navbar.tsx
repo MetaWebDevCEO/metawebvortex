@@ -251,7 +251,7 @@ export function SiteNavbar() {
               alt="MetaWeb Vortex"
               width={500}
               height={250}
-              className="h-12 w-auto max-w-[300px] sm:h-12 sm:max-w-[340px] lg:h-16 lg:max-w-[500px] xl:h-20 xl:max-w-[560px]"
+              className="h-25 w-auto max-w-[300px] sm:h-25 sm:max-w-[340px] lg:h-16 lg:max-w-[500px] xl:h-20 xl:max-w-[560px]"
               priority
             />
           </Link>
