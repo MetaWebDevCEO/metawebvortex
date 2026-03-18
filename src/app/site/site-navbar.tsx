@@ -40,6 +40,10 @@ export function SiteNavbar() {
   const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
   const [renderDropdown, setRenderDropdown] = useState<DropdownKey | null>(null);
   const closeTimerRef = useRef<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [renderMobileMenu, setRenderMobileMenu] = useState(false);
+  const mobileCloseTimerRef = useRef<number | null>(null);
+  const [mobileAccordion, setMobileAccordion] = useState<DropdownKey | null>(null);
 
   const dropdowns = useMemo<Record<DropdownKey, DropdownSection[]>>(
     () => ({
@@ -196,22 +200,50 @@ export function SiteNavbar() {
     setOpenDropdown(key);
   }, []);
 
+  const closeMobileMenu = useCallback(() => {
+    if (mobileCloseTimerRef.current) {
+      window.clearTimeout(mobileCloseTimerRef.current);
+      mobileCloseTimerRef.current = null;
+    }
+    setMobileMenuOpen(false);
+    mobileCloseTimerRef.current = window.setTimeout(() => {
+      setRenderMobileMenu(false);
+      setMobileAccordion(null);
+      mobileCloseTimerRef.current = null;
+    }, 160);
+  }, []);
+
+  const openMobileMenu = useCallback(() => {
+    if (mobileCloseTimerRef.current) {
+      window.clearTimeout(mobileCloseTimerRef.current);
+      mobileCloseTimerRef.current = null;
+    }
+    setRenderMobileMenu(true);
+    setMobileMenuOpen(true);
+    closeDropdown();
+  }, [closeDropdown]);
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") closeDropdown();
+      if (e.key === "Escape") {
+        closeDropdown();
+        closeMobileMenu();
+      }
     }
     window.addEventListener("keydown", onKeyDown);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [closeDropdown]);
+  }, [closeDropdown, closeMobileMenu]);
 
   return (
     <header
       className="relative border-b border-zinc-200 bg-white"
-      onMouseLeave={closeDropdown}
+      onMouseLeave={() => {
+        if (!mobileMenuOpen) closeDropdown();
+      }}
     >
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-6 px-4">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-6 px-4 xl:h-20">
         <div className="flex items-center gap-10">
           <Link href="/site" className="flex items-center gap-3">
             <Image
@@ -219,7 +251,7 @@ export function SiteNavbar() {
               alt="MetaWeb Vortex"
               width={500}
               height={250}
-              className="h-25 w-auto max-w-[500px]"
+              className="h-12 w-auto max-w-[300px] sm:h-12 sm:max-w-[340px] lg:h-16 lg:max-w-[500px] xl:h-20 xl:max-w-[560px]"
               priority
             />
           </Link>
@@ -299,19 +331,36 @@ export function SiteNavbar() {
 
           <Link
             href="/site"
-            className="inline-flex h-9 items-center justify-center rounded-full bg-black px-4 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
+            className="hidden md:inline-flex h-9 items-center justify-center rounded-full bg-black px-4 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
           >
             Sign up
           </Link>
 
-          <nav className="md:hidden">
-            <Link
-              href="/site/productos"
-              className="inline-flex h-9 items-center justify-center rounded-full border border-zinc-200 bg-white px-4 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-50"
+          <button
+            type="button"
+            onClick={() => {
+              if (mobileMenuOpen) closeMobileMenu();
+              else openMobileMenu();
+            }}
+            className="inline-flex h-10 w-10 items-center justify-center bg-transparent text-zinc-950 transition-colors hover:bg-black/5 active:bg-black/10 md:hidden"
+            aria-label="Abrir menú"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              Menú
-            </Link>
-          </nav>
+              <path d="M4 6h16" />
+              <path d="M4 12h16" />
+              <path d="M4 18h16" />
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -378,6 +427,125 @@ export function SiteNavbar() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {renderMobileMenu ? (
+        <div className="fixed inset-0 z-[60] md:hidden">
+          <div
+            className={[
+              "absolute inset-0 bg-black/40 transition-opacity duration-150",
+              mobileMenuOpen ? "opacity-100" : "opacity-0",
+            ].join(" ")}
+            onClick={closeMobileMenu}
+          />
+          <div
+            className={[
+              "absolute right-0 top-0 h-full w-[360px] max-w-[90vw] bg-white shadow-xl transition-transform duration-150 ease-out",
+              mobileMenuOpen ? "translate-x-0" : "translate-x-full",
+            ].join(" ")}
+          >
+            <div className="flex h-16 items-center justify-between border-b border-zinc-200 px-4">
+              <Image
+                src="/logov.svg"
+                alt="MetaWeb Vortex"
+                width={500}
+                height={250}
+                className="h-12 w-auto max-w-[300px]"
+              />
+              <button
+                type="button"
+                onClick={closeMobileMenu}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-950 transition-colors hover:bg-zinc-50"
+                aria-label="Cerrar"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-1 px-4 py-4">
+              {navItems.map((item) => {
+                const dropdownKey = dropdownKeyFromHref(item.href);
+                const isActive =
+                  pathname === item.href || pathname?.startsWith(`${item.href}/`);
+
+                if (item.hasDropdown && dropdownKey) {
+                  const isOpen = mobileAccordion === dropdownKey;
+                  const labelId = `mobile-${dropdownKey}`;
+
+                  return (
+                    <div key={item.href} className="rounded-xl border border-zinc-200">
+                      <button
+                        id={labelId}
+                        type="button"
+                        className="flex w-full items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-zinc-950"
+                        onClick={() => {
+                          setMobileAccordion((prev) =>
+                            prev === dropdownKey ? null : dropdownKey,
+                          );
+                        }}
+                      >
+                        <span className={isActive ? "underline underline-offset-4" : ""}>
+                          {item.label}
+                        </span>
+                        <span className={isOpen ? "rotate-180 transition-transform" : "transition-transform"}>
+                          ▾
+                        </span>
+                      </button>
+                      <div className={isOpen ? "block" : "hidden"}>
+                        <div className="border-t border-zinc-200 px-2 py-2">
+                          {dropdowns[dropdownKey].map((section) => (
+                            <div key={section.title} className="py-2">
+                              <div className="px-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                                {section.title}
+                              </div>
+                              <div className="mt-2 flex flex-col gap-1">
+                                {section.items.map((entry) => (
+                                  <Link
+                                    key={entry.title}
+                                    href={entry.href}
+                                    className="rounded-lg px-2 py-2 text-sm text-zinc-950 transition-colors hover:bg-zinc-50"
+                                    onClick={closeMobileMenu}
+                                  >
+                                    <div className="font-medium">{entry.title}</div>
+                                    <div className="text-xs text-zinc-600">
+                                      {entry.description}
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMobileMenu}
+                    className={[
+                      "rounded-xl border border-zinc-200 px-4 py-3 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-50",
+                      isActive ? "underline underline-offset-4" : "",
+                    ].join(" ")}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+
+              <Link
+                href="/site"
+                onClick={closeMobileMenu}
+                className="mt-3 inline-flex h-11 items-center justify-center rounded-full bg-black px-5 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
+              >
+                Sign up
+              </Link>
             </div>
           </div>
         </div>
