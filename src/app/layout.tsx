@@ -15,7 +15,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "MetaWeb Vortex",
-  description: "MetaWeb Vortex una plataforma de gestión de contenido para empresas de Transporte y Lo.",
+  description: "MetaWeb Vortex una plataforma de gestión de empresarial  de Transporte y Lo.",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
