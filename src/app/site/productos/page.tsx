@@ -14,7 +14,7 @@ type TechId =
   | "amplify"
   | "cdk"
   | "cognito"
-  | "dynamodb"
+  | "stripe"
   | "s3"
   | "nodejs"
   | "vercel"
@@ -232,7 +232,7 @@ function TechLogo({
     );
   }
 
-  if (id === "dynamodb") {
+  if (id === "stripe") {
     return (
       <svg
         aria-label={label}
@@ -438,24 +438,23 @@ const howItWorks = [
 ] as const;
 
 const techStack: { id: TechId; label: string; src?: string }[] = [
-  { id: "nextjs", label: "Next.js", src: "/next.svg" },
-  { id: "react", label: "React", src: "/react.svg" },
-  { id: "tailwind", label: "Tailwind CSS", src: "/tailwindcss.svg" },
-  { id: "shadcn", label: "shadcn/ui", src: "/shadcnui.svg" },
-  { id: "typescript", label: "TypeScript", src: "/typescript.svg" },
-  { id: "github", label: "GitHub", src: "/github.svg" },
-  { id: "aws", label: "AWS", src: "/aws.svg" },
-  { id: "amplify", label: "Amplify" },
-  { id: "cdk", label: "CDK", src: "/cdk.svg" },
-  { id: "cognito", label: "Cognito" },
-  { id: "dynamodb", label: "DynamoDB" },
-  { id: "s3", label: "S3", src: "/s3.svg" },  
-  { id: "nodejs", label: "Node.js", src: "/nodedotjs.svg" },
-  { id: "vercel", label: "Vercel", src: "/vercel.svg" },
-  { id: "eslint", label: "ESLint", src: "/eslint.svg" },
-  { id: "figma", label: "Figma", src: "/figma(1).svg" },
-];
-
+  { id: "nextjs", label: "Next.js", src: "/logos/next.svg" },
+  { id: "react", label: "React", src: "/logos/react.svg" }, 
+  { id: "tailwind", label: "Tailwind CSS", src: "/logos/tailwindcss.svg" },
+  { id: "shadcn", label: "shadcn/ui", src: "/logos/shadcn-ui.svg" },
+  { id: "typescript", label: "TypeScript", src: "/logos/typescript.svg" },
+  { id: "github", label: "GitHub", src: "/logos/github.svg" },
+  { id: "aws", label: "AWS", src: "/logos/aws.svg" },
+  { id: "amplify", label: "Amplify", src: "/logos/Amplify.svg" },
+  { id: "cdk", label: "CDK", src: "/logos/CDK.svg" },
+  { id: "cognito", label: "Cognito", src: "/logos/Cognito.svg" }, 
+  { id: "stripe", label: "Stripe", src: "/logos/stripe.svg" },
+  { id: "s3", label: "S3", src: "/logos/s3.svg" },  
+  { id: "nodejs", label: "Node.js", src: "/logos/nodejs.svg" },
+  { id: "vercel", label: "Vercel", src: "/logos/vercel.svg" },
+  { id: "eslint", label: "ESLint", src: "/logos/eslint.svg" },
+  { id: "figma", label: "Figma", src: "/logos/figma.svg" },
+] 
 const faqs = [
   {
     q: "¿Puedo contratar un producto y después sumar otro?",
