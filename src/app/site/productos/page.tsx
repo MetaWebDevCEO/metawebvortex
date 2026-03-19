@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import styles from "./productos.module.css";
+import { SolutionsCarousel } from "./solutions-carousel";
 
 type TechId =
   | "nextjs"
@@ -355,56 +356,38 @@ const products = [
     id: "metaweb-apex",
     name: "MetaWeb Apex",
     description:
-      "Módulo de Vortex para operar, medir y escalar: tableros, flujos y métricas pensados para equipos de alto desempeño.",
+      "ERP y CRM empresarial para centralizar operación, ventas y gestión interna en un solo sistema.",
     logoSrc: "/apex.svg",
     href: "#metaweb-apex",
     hrefLabel: "Ver detalles",
     kind: "modulo",
     highlights: [
-      "Gestión operativa y KPIs",
-      "Flujos y aprobaciones",
-      "Paneles y reportes en tiempo real",
+      "ERP empresarial",
+      "CRM y ventas",
+      "Reportes y control",
     ],
   },
   {
     id: "metaweb-finanzs",
     name: "MetaWeb Finanzs",
     description:
-      "Módulo de Vortex para finanzas: reportes, control de costos y visibilidad para decidir con confianza.",
+      "Gestor de finanzas personales y empresariales con control, reportes y visibilidad para decidir con confianza.",
     logoText: "F",
     href: "#metaweb-finanzs",
     hrefLabel: "Ver detalles",
     kind: "modulo",
-    highlights: ["Presupuestos y control", "Reportes financieros", "Trazabilidad de costos"],
+    highlights: ["Finanzas personales", "Finanzas empresariales", "Reportes y control"],
   },
   {
     id: "metaweb-containers",
     name: "MetaWeb Containers",
     description:
-      "Módulo de Vortex para logística: trazabilidad de contenedores, eventos y visibilidad end‑to‑end.",
+      "Plataforma para gestión de inventarios, ventas y operación con trazabilidad y control.",
     logoText: "C",
     href: "#metaweb-containers",
     hrefLabel: "Ver detalles",
     kind: "modulo",
-    highlights: ["Tracking y eventos", "Flujo operativo", "Evidencias y auditoría"],
-  },
-] as const;
-
-const audiences = [
-  {
-    title: "Operaciones",
-    description:
-      "Estandariza flujos en Vortex, centraliza procesos y obtén indicadores listos para decisiones.",
-  },
-  {
-    title: "Finanzas",
-    description:
-      "Control de costos, reportes y trazabilidad con Finanzs para cerrar con claridad y sin sorpresas.",
-  },
-  {
-    title: "Logística",
-    description:
-      "Seguimiento de eventos, evidencias y trazabilidad end‑to‑end con Containers para transporte y contenedores.",
+    highlights: ["Inventarios", "Ventas", "Control operativo"],
   },
 ] as const;
 
@@ -412,29 +395,6 @@ const techStats = [
   { value: "12+", label: "tecnologías en el stack" },
   { value: "AWS", label: "infraestructura cloud" },
   { value: "CI/CD", label: "repos y despliegues" },
-] as const;
-
-const howItWorks = [
-  {
-    step: "01",
-    title: "Diagnóstico",
-    description: "Entendemos tu operación y definimos el alcance de Vortex y los módulos necesarios.",
-  },
-  {
-    step: "02",
-    title: "Implementación",
-    description: "Configuración de Vortex, integraciones y puesta en marcha con entregables claros.",
-  },
-  {
-    step: "03",
-    title: "Automatización",
-    description: "Flujos, alertas y tableros para monitorear y ejecutar con menos fricción.",
-  },
-  {
-    step: "04",
-    title: "Escalamiento",
-    description: "Agrega Apex, Finanzs o Containers conforme crece tu operación.",
-  },
 ] as const;
 
 const techStack: { id: TechId; label: string; src?: string }[] = [
@@ -454,29 +414,71 @@ const techStack: { id: TechId; label: string; src?: string }[] = [
   { id: "vercel", label: "Vercel", src: "/logos/vercel.svg" },
   { id: "eslint", label: "ESLint", src: "/logos/eslint.svg" },
   { id: "figma", label: "Figma", src: "/logos/figma.svg" },
-] 
-const faqs = [
+] ;
+
+const testimonials = [
   {
-    q: "¿Puedo contratar un producto y después sumar otro?",
-    a: "Sí. La suite está pensada para combinarse. Puedes empezar con un producto y agregar módulos conforme cambien tus necesidades.",
+    name: "Andrea López",
+    handle: "@andreaops",
+    text: "Con Vortex automatizamos el seguimiento operativo y mejoramos la visibilidad del transporte en semanas.",
   },
   {
-    q: "¿Se puede integrar con mis sistemas actuales?",
-    a: "Sí. Trabajamos con integraciones vía API, webhooks y conectores según tu stack. Definimos el alcance en el diagnóstico.",
+    name: "Carlos Méndez",
+    handle: "@carloscrm",
+    text: "Apex nos ayudó a ordenar ventas y operación en un solo ERP/CRM. El equipo trabaja con datos consistentes.",
   },
   {
-    q: "¿Cuánto tarda una implementación típica?",
-    a: "Depende del alcance e integraciones. Normalmente iniciamos con una primera entrega funcional y luego iteramos por módulos.",
+    name: "Fernanda Ruiz",
+    handle: "@ferfinanzas",
+    text: "Finanzs nos dio control financiero claro para decisiones rápidas, tanto en lo personal como en la empresa.",
   },
   {
-    q: "¿Qué tipo de soporte ofrecen?",
-    a: "Acompañamiento en onboarding, soporte técnico y mejoras evolutivas. El nivel exacto depende del plan y del alcance del proyecto.",
+    name: "Miguel Torres",
+    handle: "@miguelinv",
+    text: "Con Containers gestionamos inventarios y ventas con trazabilidad. Menos errores, más control.",
+  },
+  {
+    name: "Sofía Vargas",
+    handle: "@sofiaops",
+    text: "La implementación con MetaWeb Dev Solutions fue por etapas y sin fricción. Entregas claras y soporte constante.",
+  },
+  {
+    name: "Javier Salinas",
+    handle: "@javiers",
+    text: "Integraciones y automatizaciones bien pensadas. Vortex encajó con nuestros sistemas sin complicaciones.",
+  },
+] as const;
+const faqSections = [
+  {
+    title: "General",
+    items: [
+      {
+        q: "¿Puedo contratar un producto y después sumar otro?",
+        a: "Sí. La suite está pensada para combinarse. Puedes empezar con un producto y agregar módulos conforme cambien tus necesidades.",
+      },
+      {
+        q: "¿Se puede integrar con mis sistemas actuales?",
+        a: "Sí. Trabajamos con integraciones vía API, webhooks y conectores según tu stack. Definimos el alcance en el diagnóstico.",
+      },
+    ],
+  },
+  {
+    title: "Implementación",
+    items: [
+      {
+        q: "¿Cuánto tarda una implementación típica?",
+        a: "Depende del alcance e integraciones. Normalmente iniciamos con una primera entrega funcional y luego iteramos por módulos.",
+      },
+      {
+        q: "¿Qué tipo de soporte ofrecen?",
+        a: "Acompañamiento en onboarding, soporte técnico y mejoras evolutivas. El nivel exacto depende del plan y del alcance del proyecto.",
+      },
+    ],
   },
 ] as const;
 
 export default function ProductosPage() {
   const creator = products.find((p) => p.kind === "creadores");
-  const modules = products.filter((p) => p.kind === "modulo");
 
   return (
     <div className="flex flex-col">
@@ -490,7 +492,9 @@ export default function ProductosPage() {
 
               <p className="max-w-3xl text-base leading-7 text-zinc-600 md:text-lg">
                 Somos una empresa de desarrollo de software. Creamos Vortex como una plataforma
-                central para operar, integrar y escalar procesos, con módulos especializados.
+                de logística y transporte que engloba múltiples funcionalidades y se integra con un
+                ecosistema de productos: Apex (ERP/CRM), Finanzs (finanzas) y Containers (inventarios
+                y ventas).
               </p>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -503,10 +507,10 @@ export default function ProductosPage() {
                   Visitar MetaWeb Dev Solutions
                 </Link>
                 <Link
-                  href="#modulos"
+                  href="#comentarios"
                   className="inline-flex h-11 items-center justify-center rounded-full border border-black/10 bg-white px-6 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-50"
                 >
-                  Explorar módulos
+                  Ver comentarios
                 </Link>
               </div>
             </div>
@@ -608,316 +612,335 @@ export default function ProductosPage() {
 
       <section className="bg-white">
         <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-16">
-          <div className="flex flex-col gap-8">
+          <div className="grid gap-10 md:grid-cols-2 md:items-start">
             <div className="flex flex-col gap-3">
               <h2 className="text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
-                Ecosistema Vortex
+                Ecosistema MetaWeb Dev Solutions
               </h2>
-              <p className="max-w-3xl text-sm leading-6 text-zinc-600 md:text-base">
-                Vortex está compuesto por módulos que resuelven áreas específicas. Puedes iniciar con
-                uno y sumar el resto conforme crezca tu operación.
+              <p className="text-sm leading-6 text-zinc-600 md:text-base">
+                Un conjunto de productos creados por MetaWeb Dev Solutions para cubrir operación,
+                finanzas, logística e inventarios.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {products.map((p) => (
-                <article
-                  key={p.id}
-                  className="rounded-3xl border border-black/10 bg-white p-6 md:p-7"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-zinc-50">
-                      {"logoSrc" in p ? (
-                        <Image
-                          src={p.logoSrc}
-                          alt={p.name}
-                          width={96}
-                          height={96}
-                          className="h-10 w-auto"
-                        />
-                      ) : (
-                        <span className="text-lg font-bold text-zinc-950">
-                          {"logoText" in p ? p.logoText : ""}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-lg font-semibold text-zinc-950">{p.name}</h3>
-                        <span className="inline-flex items-center rounded-full border border-black/10 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-950">
-                          {p.kind === "creadores" ? "Creadores" : "Módulo"}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm leading-6 text-zinc-600">{p.description}</p>
-                    </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="flex items-start gap-3">
+                <div className="mt-1 text-black-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-zinc-950">Vortex Platform</div>
+                  <div className="mt-1 text-sm leading-6 text-zinc-600">
+                    Plataforma de logística y transporte que engloba múltiples funcionalidades para la
+                    operación.
                   </div>
+                </div>
+              </div>
 
-                  <div className="mt-5 grid gap-2">
-                    {p.highlights.map((h) => (
-                      <div key={h} className="flex items-start gap-2 text-sm text-zinc-700">
-                        <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-black" />
-                        <span>{h}</span>
-                      </div>
-                    ))}
+              <div className="flex items-start gap-3">
+                <div className="mt-1 text-black-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-zinc-950">MetaWeb Apex</div>
+                  <div className="mt-1 text-sm leading-6 text-zinc-600">
+                    ERP y CRM empresarial para centralizar procesos, ventas y operación.
                   </div>
+                </div>
+              </div>
 
-                  <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <Link
-                      href={p.href}
-                      target={p.href.startsWith("http") ? "_blank" : undefined}
-                      rel={p.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="inline-flex h-10 items-center justify-center rounded-full bg-black px-5 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
-                    >
-                      {p.hrefLabel}
-                    </Link>
-                    <Link
-                      href="/site/integraciones"
-                      className="inline-flex h-10 items-center justify-center rounded-full border border-black/10 bg-white px-5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-50"
-                    >
-                      Ver integraciones
-                    </Link>
+              <div className="flex items-start gap-3">
+                <div className="mt-1 text-black-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-zinc-950">MetaWeb Finanzs</div>
+                  <div className="mt-1 text-sm leading-6 text-zinc-600">
+                    Gestor de finanzas personales y empresariales con reportes y control.
                   </div>
-                </article>
-              ))}
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="mt-1 text-black-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-zinc-950">MetaWeb Containers</div>
+                  <div className="mt-1 text-sm leading-6 text-zinc-600">
+                    Plataforma para inventarios, ventas y gestión operativa.
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="modulos" className="bg-white">
+      <section id="comentarios" className="bg-white">
+        <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-16">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-3 items-center text-center">
+              <h2 className="text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
+                Lo que dicen nuestros usuarios
+              </h2>
+              <p className="max-w-3xl text-sm leading-6 text-zinc-600 md:text-base">
+                Opiniones sobre Vortex y el ecosistema de soluciones creado por MetaWeb Dev Solutions.
+              </p>
+            </div>
+
+            <div className="relative overflow-hidden rounded-2xl ">
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent" />
+
+              <div className="flex flex-col gap-4 p-6">
+                <div className="overflow-hidden">
+                  <div className={`flex w-max ${styles.marqueeTrackSlow}`}>
+                    <div className="flex gap-4">
+                      {testimonials.map((t) => (
+                        <div
+                          key={t.handle}
+                          className="w-[320px] rounded-2xl border border-black/10 bg-white p-5"
+                        >
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-50 text-sm font-semibold text-zinc-950">
+                                {t.name
+                                  .split(" ")
+                                  .slice(0, 2)
+                                  .map((p) => p[0])
+                                  .join("")}
+                              </div>
+                              <div className="min-w-0">
+                                <div className="truncate text-sm font-semibold text-zinc-950">
+                                  {t.name}
+                                </div>
+                                <div className="truncate text-xs text-zinc-500">{t.handle}</div>
+                              </div>
+                            </div>
+                            <div className="text-zinc-400">↗</div>
+                          </div>
+                          <div className="mt-4 text-sm leading-6 text-zinc-700">“{t.text}”</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex gap-4" aria-hidden>
+                      {testimonials.map((t) => (
+                        <div
+                          key={`${t.handle}-dup`}
+                          className="w-[320px] rounded-2xl border border-black/10 bg-white p-5"
+                        >
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-50 text-sm font-semibold text-zinc-950">
+                                {t.name
+                                  .split(" ")
+                                  .slice(0, 2)
+                                  .map((p) => p[0])
+                                  .join("")}
+                              </div>
+                              <div className="min-w-0">
+                                <div className="truncate text-sm font-semibold text-zinc-950">
+                                  {t.name}
+                                </div>
+                                <div className="truncate text-xs text-zinc-500">{t.handle}</div>
+                              </div>
+                            </div>
+                            <div className="text-zinc-400">↗</div>
+                          </div>
+                          <div className="mt-4 text-sm leading-6 text-zinc-700">“{t.text}”</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="overflow-hidden">
+                  <div className={`flex w-max ${styles.marqueeTrackReverse}`}>
+                    <div className="flex gap-4">
+                      {testimonials.map((t) => (
+                        <div
+                          key={`${t.handle}-r`}
+                          className="w-[320px] rounded-2xl border border-black/10 bg-white p-5"
+                        >
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-50 text-sm font-semibold text-zinc-950">
+                                {t.name
+                                  .split(" ")
+                                  .slice(0, 2)
+                                  .map((p) => p[0])
+                                  .join("")}
+                              </div>
+                              <div className="min-w-0">
+                                <div className="truncate text-sm font-semibold text-zinc-950">
+                                  {t.name}
+                                </div>
+                                <div className="truncate text-xs text-zinc-500">{t.handle}</div>
+                              </div>
+                            </div>
+                            <div className="text-zinc-400">↗</div>
+                          </div>
+                          <div className="mt-4 text-sm leading-6 text-zinc-700">“{t.text}”</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex gap-4" aria-hidden>
+                      {testimonials.map((t) => (
+                        <div
+                          key={`${t.handle}-r-dup`}
+                          className="w-[320px] rounded-2xl border border-black/10 bg-white p-5"
+                        >
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-50 text-sm font-semibold text-zinc-950">
+                                {t.name
+                                  .split(" ")
+                                  .slice(0, 2)
+                                  .map((p) => p[0])
+                                  .join("")}
+                              </div>
+                              <div className="min-w-0">
+                                <div className="truncate text-sm font-semibold text-zinc-950">
+                                  {t.name}
+                                </div>
+                                <div className="truncate text-xs text-zinc-500">{t.handle}</div>
+                              </div>
+                            </div>
+                            <div className="text-zinc-400">↗</div>
+                          </div>
+                          <div className="mt-4 text-sm leading-6 text-zinc-700">“{t.text}”</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-16">
+          <div className="rounded-3xl bg-black px-6 py-12 text-center text-white md:px-14 md:py-16">
+            <div className="mx-auto flex max-w-2xl flex-col items-center gap-4">
+              <div className="text-xs font-semibold uppercase tracking-wide text-white/70">
+                Get started
+              </div>
+              <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
+                ¿Listo para iniciar?
+              </h2>
+              <p className="text-sm leading-6 text-white/80 md:text-base">
+                Empieza con Vortex y escala con Apex, Finanzs y Containers. Todo con MetaWeb Dev Solutions.
+              </p>
+              <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/site/recursos"
+                  className="inline-flex h-11 items-center justify-center rounded-full bg-white px-6 text-sm font-semibold text-black transition-colors hover:bg-zinc-100"
+                >
+                  Iniciar
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SolutionsCarousel />
+
+      <section className="bg-white">
         <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-16">
           <div className="flex flex-col gap-10">
-            <div className="flex flex-col gap-3">
-              <h2 className="text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
-                Módulos dentro de Vortex
-              </h2>
-              <p className="max-w-3xl text-sm leading-6 text-zinc-600 md:text-base">
-                Cada módulo se integra a Vortex para compartir datos, roles y trazabilidad en un solo
-                lugar.
-              </p>
-            </div>
+            <h2 className="text-4xl font-semibold tracking-tight text-zinc-950 md:text-5xl">
+              Preguntas frecuentes.
+            </h2>
+            <div className="h-px bg-black/10" />
 
-            <div className="grid gap-6">
-              {modules.map((p) => (
-                <section
-                  key={p.id}
-                  id={p.id}
-                  className="rounded-3xl border border-black/10 bg-white p-6 md:p-7"
+            <div className="flex flex-col gap-12">
+              {faqSections.map((section) => (
+                <div
+                  key={section.title}
+                  className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-10"
                 >
-                  <div className="grid gap-6 md:grid-cols-2 md:items-start">
-                    <div className="flex flex-col gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-50">
-                          {"logoSrc" in p ? (
-                            <Image
-                              src={p.logoSrc}
-                              alt={p.name}
-                              width={72}
-                              height={72}
-                              className="h-9 w-auto"
-                            />
-                          ) : (
-                            <span className="text-base font-bold text-zinc-950">
-                              {"logoText" in p ? p.logoText : ""}
-                            </span>
-                          )}
+                  <div className="text-sm font-semibold text-zinc-950">{section.title}</div>
+                  <div className="border-t border-black/10">
+                    {section.items.map((f) => (
+                      <details key={f.q} className="group border-b border-black/10 py-4">
+                        <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-sm font-semibold text-zinc-950">
+                          <span>{f.q}</span>
+                          <span className="text-zinc-500 transition-transform group-open:rotate-180">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="m6 9 6 6 6-6" />
+                            </svg>
+                          </span>
+                        </summary>
+                        <div className="mt-3 pr-8 text-sm leading-6 text-zinc-600">
+                          {f.a}
                         </div>
-                        <div>
-                          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                            Módulo
-                          </div>
-                          <div className="text-lg font-semibold text-zinc-950">{p.name}</div>
-                        </div>
-                      </div>
-                      <p className="text-sm leading-6 text-zinc-600">{p.description}</p>
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                        <Link
-                          href="/site/recursos"
-                          className="inline-flex h-10 items-center justify-center rounded-full bg-black px-5 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
-                        >
-                          Solicitar demo
-                        </Link>
-                        <Link
-                          href="/site/precios"
-                          className="inline-flex h-10 items-center justify-center rounded-full border border-black/10 bg-white px-5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-50"
-                        >
-                          Ver precios
-                        </Link>
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl bg-zinc-50 p-5">
-                      <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                        Incluye
-                      </div>
-                      <div className="mt-3 grid gap-2">
-                        {p.highlights.map((h) => (
-                          <div key={h} className="flex items-start gap-2 text-sm text-zinc-700">
-                            <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-black" />
-                            <span>{h}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                      </details>
+                    ))}
                   </div>
-                </section>
-              ))}
-
-              {creator ? (
-                <section
-                  id={creator.id}
-                  className="rounded-3xl border border-black/10 bg-white p-6 md:p-7"
-                >
-                  <div className="grid gap-6 md:grid-cols-2 md:items-start">
-                    <div className="flex flex-col gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-50">
-                          {"logoSrc" in creator ? (
-                            <Image
-                              src={creator.logoSrc}
-                              alt={creator.name}
-                              width={72}
-                              height={72}
-                              className="h-9 w-auto"
-                            />
-                          ) : null}
-                        </div>
-                        <div>
-                          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                            Creadores
-                          </div>
-                          <div className="text-lg font-semibold text-zinc-950">{creator.name}</div>
-                        </div>
-                      </div>
-                      <p className="text-sm leading-6 text-zinc-600">{creator.description}</p>
-                      <Link
-                        href={creator.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex h-10 items-center justify-center rounded-full bg-black px-5 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
-                      >
-                        Visitar sitio
-                      </Link>
-                    </div>
-
-                    <div className="rounded-2xl bg-zinc-50 p-5">
-                      <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                        Lo que hacemos
-                      </div>
-                      <div className="mt-3 grid gap-2">
-                        {creator.highlights.map((h) => (
-                          <div key={h} className="flex items-start gap-2 text-sm text-zinc-700">
-                            <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-black" />
-                            <span>{h}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </section>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-16">
-          <div className="grid gap-10 md:grid-cols-2 md:items-start">
-            <div className="flex flex-col gap-3">
-              <h2 className="text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
-                Perfecto para
-              </h2>
-              <p className="text-sm leading-6 text-zinc-600 md:text-base">
-                Equipos que necesitan resultados rápidos sin perder gobernanza, control y trazabilidad.
-              </p>
-            </div>
-
-            <div className="grid gap-3">
-              {audiences.map((a) => (
-                <div key={a.title} className="rounded-2xl border border-black/10 bg-white p-5">
-                  <div className="text-sm font-semibold text-zinc-950">{a.title}</div>
-                  <div className="mt-1 text-sm leading-6 text-zinc-600">{a.description}</div>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-zinc-50">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-16">
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-3">
-              <h2 className="text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
-                Cómo funciona
-              </h2>
-              <p className="max-w-3xl text-sm leading-6 text-zinc-600 md:text-base">
-                Un proceso simple para llevar tu operación a producción, integrando lo necesario sin
-                frenar al equipo.
-              </p>
-            </div>
-
-            <div className="grid gap-3 md:grid-cols-4">
-              {howItWorks.map((s) => (
-                <div key={s.step} className="rounded-2xl bg-white p-5">
-                  <div className="text-xs font-semibold text-zinc-500">{s.step}</div>
-                  <div className="mt-2 text-sm font-semibold text-zinc-950">{s.title}</div>
-                  <div className="mt-1 text-sm leading-6 text-zinc-600">{s.description}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/site/recursos"
-                className="inline-flex h-11 items-center justify-center rounded-full bg-black px-6 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
-              >
-                Agendar demo
-              </Link>
-              <Link
-                href="/site/documentacion"
-                className="inline-flex h-11 items-center justify-center rounded-full border border-black/10 bg-white px-6 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-50"
-              >
-                Ver documentación
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-16">
-          <div className="grid gap-10 md:grid-cols-2 md:items-start">
-            <div className="flex flex-col gap-3">
-              <h2 className="text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
-                Preguntas frecuentes
-              </h2>
-              <p className="text-sm leading-6 text-zinc-600 md:text-base">
-                Respuestas rápidas para ayudarte a elegir y planear tu implementación.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3">
-              {faqs.map((f) => (
-                <details
-                  key={f.q}
-                  className="group rounded-2xl border border-black/10 bg-white p-5"
-                >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-zinc-950">
-                    <span>{f.q}</span>
-                    <span className="text-zinc-500">+</span>
-                  </summary>
-                  <div className="mt-3 text-sm leading-6 text-zinc-600">{f.a}</div>
-                </details>
-              ))}
-              <Link
-                href="/site/recursos"
-                className="inline-flex h-11 items-center justify-center rounded-full bg-black px-6 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
-              >
-                Contacto
-              </Link>
             </div>
           </div>
         </div>
