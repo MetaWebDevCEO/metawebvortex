@@ -27,6 +27,8 @@ type DropdownItem = {
   description: string;
   href: string;
   badge?: string;
+  logoText?: string;
+  logoSrc?: string;
 };
 
 type DropdownSection = {
@@ -54,22 +56,26 @@ export function SiteNavbar() {
             {
               title: "MetaWeb Dev Solutions",
               description: "Desarrollo y soluciones a medida para tu negocio",
-              href: "/site/productos",
+              href: "https://www.metawebdevsolutions.com.mx/",
+              logoSrc: "/metaweb.svg",
             },
             {
               title: "MetaWeb Apex",
               description: "Suite empresarial para operar y escalar procesos",
               href: "/site/productos",
+              logoSrc: "/apex.svg",
             },
             {
               title: "MetaWeb Finanzs",
               description: "Gestión financiera, reportes y control de costos",
               href: "/site/productos",
+              logoText: "F",
             },
             {
               title: "MetaWeb Containers",
               description: "Operación y trazabilidad de contenedores",
               href: "/site/productos",
+              logoText: "C",
             },
           ],
         },
@@ -277,7 +283,7 @@ export function SiteNavbar() {
                   }}
                   className={[
                     "inline-flex items-center gap-1 text-sm transition-colors",
-                    isActive ? "font-medium text-zinc-950" : "text-zinc-600 hover:text-zinc-950",
+                    isActive ? "font-medium text-zinc-950" : "text-zinc-600",
                   ].join(" ")}
                 >
                   <span>{item.label}</span>
@@ -308,26 +314,6 @@ export function SiteNavbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="hidden items-center gap-2 text-sm text-zinc-600 md:flex">
-            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-zinc-200">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-zinc-600"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </span>
-            <span className="font-medium text-zinc-950">94.7K</span>
-          </div>
 
           <Link
             href="/site"
@@ -390,27 +376,108 @@ export function SiteNavbar() {
                     <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
                       {section.title}
                     </div>
-                    <div className="mt-3 flex flex-col gap-1">
+                    <div
+                      className={[
+                        "mt-3",
+                        renderDropdown === "productos"
+                          ? "grid grid-cols-2 gap-4 lg:grid-cols-4"
+                          : "flex flex-col gap-1",
+                      ].join(" ")}
+                    >
                       {section.items.map((entry) => (
                         <Link
                           key={entry.title}
                           href={entry.href}
-                          className="rounded-md px-3 py-2 transition-colors hover:bg-zinc-50"
+                          className={
+                            renderDropdown === "productos"
+                              ? "rounded-2xl bg-white px-4 py-4"
+                              : "rounded-md px-3 py-2"
+                          }
                           onClick={closeDropdown}
                         >
-                          <div className="flex items-center gap-2">
-                            <div className="text-sm font-medium text-zinc-950">
-                              {entry.title}
-                            </div>
-                            {entry.badge ? (
-                              <span className="rounded-full bg-black px-2 py-0.5 text-[11px] font-semibold text-white">
-                                {entry.badge}
-                              </span>
-                            ) : null}
-                          </div>
-                          <div className="mt-0.5 text-xs text-zinc-600">
-                            {entry.description}
-                          </div>
+                          {entry.logoText || entry.logoSrc ? (
+                            renderDropdown === "productos" ? (
+                              <div className="flex flex-col items-center text-center">
+                                {entry.logoSrc ? (
+                                  <Image
+                                    src={entry.logoSrc}
+                                    alt={entry.title}
+                                    width={220}
+                                    height={110}
+                                    className="h-14 w-auto object-contain"
+                                  />
+                                ) : (
+                                  <div className="flex h-14 items-center justify-center">
+                                    <span className="text-base font-bold tracking-tight text-zinc-950">
+                                      {entry.logoText}
+                                    </span>
+                                  </div>
+                                )}
+                                <div className="mt-3 flex items-center justify-center gap-2">
+                                  <div className="text-sm font-semibold text-zinc-950">
+                                    {entry.title}
+                                  </div>
+                                  {entry.badge ? (
+                                    <span className="rounded-full bg-black px-2 py-0.5 text-[11px] font-semibold text-white">
+                                      {entry.badge}
+                                    </span>
+                                  ) : null}
+                                </div>
+                                <div className="mt-1 line-clamp-2 text-xs text-zinc-600">
+                                  {entry.description}
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="flex items-center gap-3">
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-zinc-200 bg-white">
+                                  {entry.logoSrc ? (
+                                    <Image
+                                      src={entry.logoSrc}
+                                      alt={entry.title}
+                                      width={40}
+                                      height={40}
+                                      className="h-10 w-10 rounded-lg object-contain"
+                                    />
+                                  ) : (
+                                    <span className="text-xs font-bold tracking-tight text-zinc-950">
+                                      {entry.logoText}
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="flex items-center gap-2">
+                                    <div className="truncate text-sm font-medium text-zinc-950">
+                                      {entry.title}
+                                    </div>
+                                    {entry.badge ? (
+                                      <span className="rounded-full bg-black px-2 py-0.5 text-[11px] font-semibold text-white">
+                                        {entry.badge}
+                                      </span>
+                                    ) : null}
+                                  </div>
+                                  <div className="mt-0.5 line-clamp-2 text-xs text-zinc-600">
+                                    {entry.description}
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          ) : (
+                            <>
+                              <div className="flex items-center gap-2">
+                                <div className="text-sm font-medium text-zinc-950">
+                                  {entry.title}
+                                </div>
+                                {entry.badge ? (
+                                  <span className="rounded-full bg-black px-2 py-0.5 text-[11px] font-semibold text-white">
+                                    {entry.badge}
+                                  </span>
+                                ) : null}
+                              </div>
+                              <div className="mt-0.5 text-xs text-zinc-600">
+                                {entry.description}
+                              </div>
+                            </>
+                          )}
                         </Link>
                       ))}
                     </div>
